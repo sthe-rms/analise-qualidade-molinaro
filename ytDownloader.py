@@ -170,7 +170,7 @@ def mostrar_thumbnail(thumbnail_url):
         img = Image.open(BytesIO(img_data))
         img = img.resize((320, 180), Image.LANCZOS)
         img_tk = ImageTk.PhotoImage(img)
-        
+
         label_thumbnail.configure(image=img_tk)
         label_thumbnail.image = img_tk
     except Exception as e:
