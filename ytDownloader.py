@@ -30,7 +30,8 @@ def selecionar_diretorio():
         diretorio_destino = filedialog.askdirectory()
         if not diretorio_destino:
             raise Exception("Nenhum diretório selecionado.")
-        label_diretorio.configure(text=f"Diretório selecionado: {diretorio_destino}", text_color="white")
+        label_diretorio.configure(text=f"Diretório selecionado:{diretorio_destino}",
+        text_color="white")
         return diretorio_destino
     except Exception as e:
         label_diretorio.configure(text=str(e), text_color="red")
@@ -44,10 +45,14 @@ def transcrever_video(video_title, video_description):
             "Content-Type": "application/json"
         }
         data = {
-            "prompt": f"Título: {video_title}\nDescrição: {video_description}\nGere um resumo e uma transcrição organizada.",
+            "prompt": (
+                f"Título: {video_title}\n"
+                f"Descrição: {video_description}\n"
+                "Gere um resumo e uma transcrição organizada."
+            ),
             "max_tokens": 1500,
             "temperature": 0.7,
-        }
+}
         response = requests.post(
             "https://api.deepseek.com/v1/completions",  # URL da API do DeepSeek
             headers=headers,
@@ -210,10 +215,15 @@ entrada_link = customtkinter.CTkEntry(janela, width=550, height=40, textvariable
 entrada_link.pack(pady=10)
 
 combobox_var = customtkinter.StringVar(value='Video')
-combobox = customtkinter.CTkComboBox(janela, values=QUALITY_OPTIONS, variable=combobox_var, width=250)
+combobox = customtkinter.CTkComboBox(janela, 
+                                     values=QUALITY_OPTIONS,
+                                     variable=combobox_var, width=250)
 combobox.pack(pady=15)
 
-botao_download = customtkinter.CTkButton(janela, text="Download", command=realizar_download, width=250, font=("Consolas", 13))
+botao_download = customtkinter.CTkButton(janela,
+                                         text="Download",
+                                         command=realizar_download,
+                                         width=250, font=("Consolas", 13))
 botao_download.pack(pady=10)
 
 label_diretorio = customtkinter.CTkLabel(janela, text="")
